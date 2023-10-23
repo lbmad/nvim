@@ -159,14 +159,18 @@ require("lazy").setup({
     "nvim-lualine/lualine.nvim",                                                -- custom status line
     opts = {
       options = {
-        section_separators = { left = '', right = '' },
-        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        -- section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
+        -- component_separators = { left = '', right = '' },
       },
       sections = {
-        lualine_a = { { "mode", separator = { left = "", right = ""}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
+        lualine_a = { { "mode", separator = { left = "", right = ""}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
+        -- lualine_a = { { "mode", separator = { left = "", right = ""}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
         lualine_y = { { "progress", fmt = function(str) return string.format(" %3s", str) end }, },
         --lualine_z = { { function() return string.format("%3d:%-3d", vim.fn.line("."), vim.fn.col(".")) end, separator = { left = "", right = "" }, }, },
-        lualine_z = { { "location", fmt = function(str) return string.format("%s", str) end, separator = { left = "", right = "" }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
+        lualine_z = { { "location", fmt = function(str) return string.format("%s", str) end, separator = { left = "", right = "" }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
+        -- lualine_z = { { "location", fmt = function(str) return string.format("%s", str) end, separator = { left = "", right = "" }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
       },
       --winbar = {
         --lualine_c = { "filename", fmt = function(str) return string.format("%s %s", require"nvim-web-devicons".get_icon(str, str:match("[^.]+$")), str) end},
@@ -232,7 +236,7 @@ vim.opt.number = true                                                           
 vim.opt.laststatus = 3                                                          -- sets global statusline for all windows 
 vim.opt.relativenumber = true                                                   -- displays line numbers relative to current line
 vim.opt.scrolloff = 5                                                           -- keeps 5 lines above/below cursor when scrolling files
-vim.opt.smartcase = true                                                        -- case-sensitive search if \C or capital is included
+vim.opt.smartcase = true                                                        -- case-sensitive search if \C or upper case character is included
 vim.opt.termguicolors = true                                                    -- enables 24-bit colour
 vim.opt.timeoutlen = 300                                                        -- time in ms to wait for a mapped sequence to complete
 vim.opt.updatetime = 250                                                        -- time in ms after which is nothing is typed, writes to swap file
