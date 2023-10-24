@@ -39,34 +39,19 @@ require("lazy").setup({
     end,
   },
   
-  -- Filetype recognition
-  {
-    "nathom/filetype.nvim",                                                     -- faster filetype recognition upon startup
-    opts = {
-      overrides = {
-        extensions = {
-          h = "fortran",
-        },
-        complex = {
-          [".fortls"] = "jsonc",
-        },
-      },
-    },
-  },
-
   -- Fuzzy finder
-  { "nvim-telescope/telescope.nvim",                                              -- list fuzzy finder
+  { "nvim-telescope/telescope.nvim",                                            -- list fuzzy finder
     branch = "0.1.x",
     dependencies = { 
-      "nvim-lua/plenary.nvim",                                                    -- Lua coroutines
+      "nvim-lua/plenary.nvim",                                                  -- Lua coroutines
       {
-        "nvim-telescope/telescope-fzf-native.nvim",                               -- fuzzy finder algorithm
+        "nvim-telescope/telescope-fzf-native.nvim",                             -- fuzzy finder algorithm
         build = "make",
         cond = function()
           return vim.fn.executable "make" == 1
         end,
       },
-    },                                    -- 
+    },
   },
 
   -- Git Signs (:help gitsigns.txt)
@@ -241,6 +226,16 @@ vim.opt.termguicolors = true                                                    
 vim.opt.timeoutlen = 300                                                        -- time in ms to wait for a mapped sequence to complete
 vim.opt.updatetime = 250                                                        -- time in ms after which is nothing is typed, writes to swap file
 vim.wo.wrap = false                                                             -- disables line wrapping
+
+-- Filetype associations
+vim.filetype.add({
+  extension = {
+    h = "fortran",
+  },
+  filename = {
+    [".fortls"] = "jsonc",
+  }
+})
 
 -- Highlight on yank (:help vim.highlight.on_yank())
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
