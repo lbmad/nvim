@@ -27,17 +27,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
   -- Colour scheme
-  --{ "catppuccin/nvim", name = "catppuccin" },                                   -- catppuccin colour scheme
-  --{ "dracula/vim", name = "dracula", lazy=false, priority = 1000 },             -- offical dracula colour scheme for vim
-  {
-    "maxmx03/dracula.nvim",                                                     -- unoffical dracula colour scheme for nvim
-    name = "dracula",
-    lazy=false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme "dracula"
-    end,
-  },
+  { "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },    -- catppuccin colour scheme (catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha)
+  { "ellisonleao/gruvbox.nvim", name = "gruvbox", lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
+  { "maxmx03/dracula.nvim", name = "dracula", lazy = false, priority = 1000 },  -- unoffical dracula colour scheme for nvim
   
   -- Fuzzy finder
   { "nvim-telescope/telescope.nvim",                                            -- list fuzzy finder
@@ -212,6 +204,8 @@ require("lazy").setup({
 -- General settings --
 
 -- Built-in options
+vim.cmd.colorscheme "dracula"                                                   -- sets colour scheme
+vim.opt.background = "dark"                                                     -- set background colour to dark or light
 vim.opt.breakindent = true                                                      -- keeps indent when wrapping
 vim.opt.completeopt = "menuone,noselect"                                        -- completeopt, something to do with completion idk
 vim.opt.colorcolumn = "80"                                                      -- colours a column
