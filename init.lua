@@ -1,9 +1,14 @@
 -- Neovim Lua config (:help lua-guide)
 -- Inspiration taken from nvim-lua/kickstart.nvim
 
+
+--------------------------------------------------------------------------------
+-- Initialisation --
+--------------------------------------------------------------------------------
+
 -- Leader key (:help mapleader)
-vim.g.mapleader = ' '                                                          -- sets global leader to space key
-vim.g.maplocalleader = ' '                                                     -- sets local leader to space key
+vim.g.mapleader = ' '                                                           -- sets global leader to space key
+vim.g.maplocalleader = ' '                                                      -- sets local leader to space key
 
 -- Install Lazy package manager (:help lazy.nvim.txt)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -19,10 +24,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 -- Plugin management via Lazy --
+--------------------------------------------------------------------------------
 
 require("lazy").setup({
 
@@ -84,21 +89,6 @@ require("lazy").setup({
     },
   },
 
-  -- Indentation guides
-  { 
-    "lukas-reineke/indent-blankline.nvim",                                      -- add indentation guides, even on blank lines
-    main = "ibl",
-    opts = {
-      indent = {
-       char = "▏",
-      },
-      scope = { 
-        highlight = "Number",                                                   -- set the highlight group of scope to the same as Number (changes colour of highlighted indent, see :hi)
-      },
-    }, 
-  },
-
-
   -- LSP
   { 
     "neovim/nvim-lspconfig",                                                    -- built-in LSP client
@@ -122,6 +112,8 @@ require("lazy").setup({
   -- Misc
   { "folke/which-key.nvim", opts = {} },                                        -- shows pending keybinds
   { "karb94/neoscroll.nvim", opts = { easing_function = "quadratic" } },        -- smooth scrolling
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },           -- add indentation guides
+  { "lukas-reineke/virt-column.nvim", opts = {} },                              -- adds a character to colorcolumn
   { "numToStr/Comment.nvim", opts = {} },                                       -- "gc" to comment visual regions/lines
   { "nvim-tree/nvim-web-devicons", opts = { color_icons = false } },            -- developer icons for plugins using nerd font 
   --"lewis6991/satellite.nvim",                                                   -- fancy scrollbar (Neovim >= 0.10 only)
@@ -198,18 +190,19 @@ require("lazy").setup({
 
 }, {})
 
--------------------------------------------------------------------------------
-------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 -- General settings --
+--------------------------------------------------------------------------------
 
 -- Built-in options
 vim.cmd.colorscheme "dracula"                                                   -- sets colour scheme
-vim.opt.background = "dark"                                                     -- set background colour to dark or light
+--vim.opt.background = "dark"                                                     -- set background colour to dark or light
 vim.opt.breakindent = true                                                      -- keeps indent when wrapping
 vim.opt.completeopt = "menuone,noselect"                                        -- completeopt, something to do with completion idk
 vim.opt.colorcolumn = "80"                                                      -- colours a column
 vim.opt.cursorline = true                                                       -- highlights current line
+vim.opt.guicursor = "n-v-c:hor20,i-ci-ve:ver25,r-cr:block,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"  -- changes cursor appearance for each mode
 vim.opt.ignorecase = true                                                       -- case-insensitive search
 vim.opt.number = true                                                           -- displays line numbers
 vim.opt.laststatus = 3                                                          -- sets global statusline for all windows 
@@ -231,6 +224,17 @@ vim.filetype.add({
   }
 })
 
+-- Highlight groups for setting indent guide and virtual column colours
+local highlight = {
+  "ActiveIndent",
+  "InactiveIndent",
+}
+local hooks = require "ibl.hooks"
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+  vim.api.nvim_set_hl(0, "ActiveIndent", { fg = "#62646C" })
+  vim.api.nvim_set_hl(0, "InactiveIndent", { fg = "#3E404A" })
+end)
+
 -- Highlight on yank (:help vim.highlight.on_yank())
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -241,10 +245,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
+-- Reset cursor upon exiting Neovim
+vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {
+  pattern = "*",
+  callback = function()
+    vim.opt.guicursor = "a:ver25-blinkwait175-blinkoff150-blinkon150"
+  end
+})
 
+
+--------------------------------------------------------------------------------
 -- Key mappings --
+--------------------------------------------------------------------------------
 
 -- Keymaps for better default experience (:help vim.keymap.set()) (idk)
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -304,10 +316,10 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 -- Language server --
+-------------------------------------------------------------------------------
 
 -- LSP related local key mappings that are applied when an LSP connects to a buffer
 local on_attach = function(_, bufnr)
@@ -421,10 +433,10 @@ cmp.setup {
   },
 }
 
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
 
+-------------------------------------------------------------------------------
 -- Other plugin configurations --
+-------------------------------------------------------------------------------
 
 -- neoscroll
 local t = {}
@@ -511,5 +523,22 @@ vim.defer_fn(function()
     },
   }
 end, 0)
+
+-- Indent Blankline
+require "ibl".setup {
+  indent = {
+    char = "▏",
+    highlight = "InactiveIndent"
+  },
+  scope = {
+    highlight = "ActiveIndent"
+  }
+}
+
+-- virt-column
+require "virt-column".setup({
+  char = "▕",
+  highlight = "InactiveIndent"
+})
 
 -------------------------------------------------------------------------------
