@@ -318,6 +318,20 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 
 
 -------------------------------------------------------------------------------
+-- Commands --
+-------------------------------------------------------------------------------
+
+-- Open init.lua configuration file
+vim.api.nvim_create_user_command(
+  'Config',
+  'e ~/.config/nvim/init.lua',
+  {
+    desc = 'Open init.lua configuration file'
+  }
+)
+
+
+-------------------------------------------------------------------------------
 -- Language server --
 -------------------------------------------------------------------------------
 
