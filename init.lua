@@ -224,7 +224,7 @@ vim.filetype.add({
   }
 })
 
--- Highlight groups for setting indent guide and virtual column colours
+-- Highlight groups for setting colours of indent guides and virtual column
 local highlight = {
   "ActiveIndent",
   "InactiveIndent",
@@ -245,7 +245,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- Reset cursor upon exiting Neovim
+-- Reset terminal cursor upon exiting Neovim
 vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {
   pattern = "*",
   callback = function()
@@ -473,14 +473,17 @@ require "neoscroll.config".set_mappings(t)
 -- Treesitter
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
-  require('nvim-treesitter.configs').setup {
+  require "nvim-treesitter.configs".setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
 
-    highlight = { enable = true },
+    highlight = {
+      enable = true,
+      disable = { "fortran" },                                                  -- disables treesitter syntax highlighting for Fortran files
+    },
     indent = { enable = true },
     incremental_selection = {
       enable = true,
