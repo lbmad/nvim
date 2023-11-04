@@ -36,8 +36,30 @@ require("lazy").setup({
   { "ellisonleao/gruvbox.nvim", name = "gruvbox", lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
   { "maxmx03/dracula.nvim", name = "dracula", lazy = false, priority = 1000 },  -- unoffical dracula colour scheme for nvim
   
+  -- CSV column highlighting
+  {
+    "cameron-wags/rainbow_csv.nvim",                                            -- highlights separate columns in .csv files for easier reading
+    config = true,
+    ft = {
+      "csv",
+      "tsv",
+      "csv_semicolon",
+      "csv_whitespace",
+      "csv_pipe",
+      "rfc_csv",
+      "rfc_semicolon"
+    },
+    cmd = {
+      "RainbowDelim",
+      "RainbowDelimSimple",
+      "RainbowDelimQuoted",
+      "RainbowMultiDelim"
+    }
+  },
+
   -- Fuzzy finder
-  { "nvim-telescope/telescope.nvim",                                            -- list fuzzy finder
+  { 
+    "nvim-telescope/telescope.nvim",                                            -- list fuzzy finder
     branch = "0.1.x",
     dependencies = { 
       "nvim-lua/plenary.nvim",                                                  -- Lua coroutines
