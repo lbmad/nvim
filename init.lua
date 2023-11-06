@@ -32,9 +32,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 
   -- Colour scheme
-  { "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },    -- catppuccin colour scheme (catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha)
-  { "ellisonleao/gruvbox.nvim", name = "gruvbox", lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
-  { "maxmx03/dracula.nvim", name = "dracula", lazy = false, priority = 1000 },  -- unoffical dracula colour scheme for nvim
+  --{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },    -- catppuccin colour scheme (catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha)
+  --{ "ellisonleao/gruvbox.nvim", name = "gruvbox", lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
+  --{ "folke/tokyonight.nvim", name = "tokyonight", lazy = false, priority = 1000, opts = { transparent = true } }, -- Tokyo Night colour scheme (tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon)
+  { "maxmx03/dracula.nvim", name = "dracula", lazy = false, priority = 1000, opts = { } },  -- unoffical dracula colour scheme for nvim
   
   -- CSV column highlighting
   {
@@ -182,32 +183,43 @@ require("lazy").setup({
           ["cmp.entry.get_documentation"] = true,
         },
       },
-      -- you can enable a preset for easier configuration
       presets = {
-        bottom_search = true, -- use a classic bottom cmdline for search
+        bottom_search = false, -- use a classic bottom cmdline for search
         command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = false, -- enables an input dialog for inc-rename.nvim
         lsp_doc_border = true, -- add a border to hover docs and signature help
       },
+      -- views = {
+      --   mini = {
+      --     win_options = {
+      --       winblend = 0,
+      --     },
+      --   },
+      -- },
     },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-      }
+      {
+        "rcarriga/nvim-notify",
+        opts = {
+          --background_colour = "Normal",
+          fps = 60,
+          stages = "fade",
+          timeout = 1000,
+        },
+      },
+    },
   },
 
   -- Highlight, edit, and navigate code
   {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    build = ':TSUpdate',
+    build = ":TSUpdate",
   },
 
 }, {})
@@ -228,6 +240,7 @@ vim.opt.guicursor = "n-v-c:hor20,i-ci-ve:ver25,r-cr:block,o:hor50,a:blinkwait700
 vim.opt.ignorecase = true                                                       -- case-insensitive search
 vim.opt.number = true                                                           -- displays line numbers
 vim.opt.laststatus = 3                                                          -- sets global statusline for all windows 
+vim.opt.pumblend = 25                                                           -- sets transparency for popup menus
 vim.opt.relativenumber = true                                                   -- displays line numbers relative to current line
 vim.opt.scrolloff = 5                                                           -- keeps 5 lines above/below cursor when scrolling files
 vim.opt.smartcase = true                                                        -- case-sensitive search if \C or upper case character is included
