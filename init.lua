@@ -77,9 +77,11 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",                                                  -- tree-style file explorer
     version = "*",
     lazy = false,
-    config = function()
-      require "nvim-tree".setup {}
-    end,
+    opts = {
+      update_focused_file = {
+        enable = true,
+      },
+    },
   },
 
   -- Fuzzy finder
