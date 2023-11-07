@@ -31,6 +31,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
+  -- Misc
+  { "folke/which-key.nvim", opts = {} },                                        -- shows pending keybinds
+  { "karb94/neoscroll.nvim", opts = { easing_function = "quadratic" } },        -- smooth scrolling
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },           -- add indentation guides
+  { "lukas-reineke/virt-column.nvim", opts = {} },                              -- adds a character to colorcolumn
+  { "numToStr/Comment.nvim", opts = {} },                                       -- "gc" to comment visual regions/lines
+  { "nvim-tree/nvim-web-devicons", opts = { color_icons = false } },            -- developer icons for plugins using nerd font 
+  --"lewis6991/satellite.nvim",                                                   -- fancy scrollbar (Neovim >= 0.10 only)
+  --"stevearc/dressing.nvim",                                                     -- fancy boarders for popups (can't figure out how to work)
+  --"ThePrimeagen/harpoon",                                                       -- quickly switch between files in buffer
+  "tpope/vim-fugitive",                                                         -- Git control from command line
+  "tpope/vim-rhubarb",                                                          -- Github browsing
+  "tpope/vim-sleuth",                                                           -- adjusts shiftwidth and expandtab based on current or nearby files
+
   -- Colour scheme
   --{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },    -- catppuccin colour scheme (catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha)
   --{ "ellisonleao/gruvbox.nvim", name = "gruvbox", lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
@@ -56,6 +70,16 @@ require("lazy").setup({
       "RainbowDelimQuoted",
       "RainbowMultiDelim"
     }
+  },
+
+  -- File explorer
+  {
+    "nvim-tree/nvim-tree.lua",                                                  -- tree-style file explorer
+    version = "*",
+    lazy = false,
+    config = function()
+      require "nvim-tree".setup {}
+    end,
   },
 
   -- Fuzzy finder
@@ -131,20 +155,6 @@ require("lazy").setup({
       "rafamadriz/friendly-snippets",                                           -- snippets for a range of languages
     },
   },
-
-  -- Misc
-  { "folke/which-key.nvim", opts = {} },                                        -- shows pending keybinds
-  { "karb94/neoscroll.nvim", opts = { easing_function = "quadratic" } },        -- smooth scrolling
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },           -- add indentation guides
-  { "lukas-reineke/virt-column.nvim", opts = {} },                              -- adds a character to colorcolumn
-  { "numToStr/Comment.nvim", opts = {} },                                       -- "gc" to comment visual regions/lines
-  { "nvim-tree/nvim-web-devicons", opts = { color_icons = false } },            -- developer icons for plugins using nerd font 
-  --"lewis6991/satellite.nvim",                                                   -- fancy scrollbar (Neovim >= 0.10 only)
-  --"stevearc/dressing.nvim",                                                     -- fancy boarders for popups (can't figure out how to work)
-  --"ThePrimeagen/harpoon",                                                       -- quickly switch between files in buffer
-  "tpope/vim-fugitive",                                                         -- Git control from command line
-  "tpope/vim-rhubarb",                                                          -- Github browsing
-  "tpope/vim-sleuth",                                                           -- adjusts shiftwidth and expandtab based on current or nearby files
 
   -- Status line
   {
@@ -231,6 +241,8 @@ require("lazy").setup({
 
 -- Built-in options
 vim.cmd.colorscheme "dracula"                                                   -- sets colour scheme
+vim.g.loaded_netrw = 1                                                          -- disables netrw for nvim-tree to work
+vim.g.loaded_netrwPlugin = 1                                                    -- disables netrw for nvim-tree to work
 --vim.opt.background = "dark"                                                     -- set background colour to dark or light
 vim.opt.breakindent = true                                                      -- keeps indent when wrapping
 vim.opt.completeopt = "menuone,noselect"                                        -- completeopt, something to do with completion idk
@@ -314,6 +326,7 @@ require('which-key').register {
   ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+  ['<leader>t'] = { name = '[T]ree', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
 
@@ -351,6 +364,8 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
+-- nvim-tree
+vim.keymap.set('n', '<leader>tt', require('nvim-tree.api').tree.toggle, { desc = '[T]ree [T]oggle' })
 
 -------------------------------------------------------------------------------
 -- Commands --
