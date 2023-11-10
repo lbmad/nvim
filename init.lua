@@ -11,14 +11,14 @@ vim.g.mapleader = ' '                                                           
 vim.g.maplocalleader = ' '                                                      -- sets local leader to space key
 
 -- Install Lazy package manager (:help lazy.nvim.txt)
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",                                                          -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',                                                          -- latest stable release
     lazypath,
   })
 end
@@ -29,53 +29,53 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugin management via Lazy --
 --------------------------------------------------------------------------------
 
-require("lazy").setup({
+require('lazy').setup({
 
   -- Misc
-  { "folke/which-key.nvim", opts = {} },                                        -- shows pending keybinds
-  { "karb94/neoscroll.nvim", opts = { easing_function = "quadratic" } },        -- smooth scrolling
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },           -- add indentation guides
-  { "lukas-reineke/virt-column.nvim", opts = {} },                              -- adds a character to colorcolumn
-  { "numToStr/Comment.nvim", opts = {} },                                       -- "gc" to comment visual regions/lines
-  { "nvim-tree/nvim-web-devicons", opts = { color_icons = false } },            -- developer icons for plugins using nerd font 
-  --"lewis6991/satellite.nvim",                                                   -- fancy scrollbar (Neovim >= 0.10 only)
-  --"stevearc/dressing.nvim",                                                     -- fancy boarders for popups (can't figure out how to work)
-  --"ThePrimeagen/harpoon",                                                       -- quickly switch between files in buffer
-  "tpope/vim-fugitive",                                                         -- Git control from command line
-  "tpope/vim-rhubarb",                                                          -- Github browsing
-  "tpope/vim-sleuth",                                                           -- adjusts shiftwidth and expandtab based on current or nearby files
+  { 'folke/which-key.nvim', opts = {} },                                        -- shows pending keybinds
+  { 'karb94/neoscroll.nvim', opts = { easing_function = 'quadratic' } },        -- smooth scrolling
+  { 'lukas-reineke/indent-blankline.nvim', main = 'ibl', opts = {} },           -- add indentation guides
+  { 'lukas-reineke/virt-column.nvim', opts = {} },                              -- adds a character to colorcolumn
+  { 'numToStr/Comment.nvim', opts = {} },                                       -- 'gc' to comment visual regions/lines
+  { 'nvim-tree/nvim-web-devicons', opts = { color_icons = false } },            -- developer icons for plugins using nerd font 
+  --'lewis6991/satellite.nvim',                                                   -- fancy scrollbar (Neovim >= 0.10 only)
+  --'stevearc/dressing.nvim',                                                     -- fancy boarders for popups (can't figure out how to work)
+  --'ThePrimeagen/harpoon',                                                       -- quickly switch between files in buffer
+  'tpope/vim-fugitive',                                                         -- Git control from command line
+  'tpope/vim-rhubarb',                                                          -- Github browsing
+  'tpope/vim-sleuth',                                                           -- adjusts shiftwidth and expandtab based on current or nearby files
 
   -- Colour scheme
-  --{ "catppuccin/nvim", name = "catppuccin", lazy = false, priority = 1000 },    -- catppuccin colour scheme (catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha)
-  --{ "ellisonleao/gruvbox.nvim", name = "gruvbox", lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
-  --{ "folke/tokyonight.nvim", name = "tokyonight", lazy = false, priority = 1000, opts = { transparent = true } }, -- Tokyo Night colour scheme (tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon)
-  { "maxmx03/dracula.nvim", name = "dracula", lazy = false, priority = 1000, opts = { } },  -- unoffical dracula colour scheme for nvim
+  --{ 'catppuccin/nvim', name = 'catppuccin', lazy = false, priority = 1000 },    -- catppuccin colour scheme (catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha)
+  --{ 'ellisonleao/gruvbox.nvim', name = 'gruvbox', lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
+  --{ 'folke/tokyonight.nvim', name = 'tokyonight', lazy = false, priority = 1000, opts = { transparent = true } }, -- Tokyo Night colour scheme (tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon)
+  { 'maxmx03/dracula.nvim', name = 'dracula', lazy = false, priority = 1000, opts = { } },  -- unoffical dracula colour scheme for nvim
   
   -- CSV column highlighting
   {
-    "cameron-wags/rainbow_csv.nvim",                                            -- highlights separate columns in .csv files for easier reading
+    'cameron-wags/rainbow_csv.nvim',                                            -- highlights separate columns in .csv files for easier reading
     config = true,
     ft = {
-      "csv",
-      "tsv",
-      "csv_semicolon",
-      "csv_whitespace",
-      "csv_pipe",
-      "rfc_csv",
-      "rfc_semicolon"
+      'csv',
+      'tsv',
+      'csv_semicolon',
+      'csv_whitespace',
+      'csv_pipe',
+      'rfc_csv',
+      'rfc_semicolon'
     },
     cmd = {
-      "RainbowDelim",
-      "RainbowDelimSimple",
-      "RainbowDelimQuoted",
-      "RainbowMultiDelim"
+      'RainbowDelim',
+      'RainbowDelimSimple',
+      'RainbowDelimQuoted',
+      'RainbowMultiDelim'
     }
   },
 
   -- File explorer
   {
-    "nvim-tree/nvim-tree.lua",                                                  -- tree-style file explorer
-    version = "*",
+    'nvim-tree/nvim-tree.lua',                                                  -- tree-style file explorer
+    version = '*',
     lazy = false,
     opts = {
       update_focused_file = {
@@ -86,15 +86,15 @@ require("lazy").setup({
 
   -- Fuzzy finder
   { 
-    "nvim-telescope/telescope.nvim",                                            -- list fuzzy finder
-    branch = "0.1.x",
+    'nvim-telescope/telescope.nvim',                                            -- list fuzzy finder
+    branch = '0.1.x',
     dependencies = { 
-      "nvim-lua/plenary.nvim",                                                  -- Lua coroutines
+      'nvim-lua/plenary.nvim',                                                  -- Lua coroutines
       {
-        "nvim-telescope/telescope-fzf-native.nvim",                             -- fuzzy finder algorithm
-        build = "make",
+        'nvim-telescope/telescope-fzf-native.nvim',                             -- fuzzy finder algorithm
+        build = 'make',
         cond = function()
-          return vim.fn.executable "make" == 1
+          return vim.fn.executable 'make' == 1
         end,
       },
     },
@@ -140,27 +140,39 @@ require("lazy").setup({
 
   -- LSP
   { 
-    "neovim/nvim-lspconfig",                                                    -- built-in LSP client
+    'neovim/nvim-lspconfig',                                                    -- built-in LSP client
     dependencies = {
-      --{ "j-hui/fidget.nvim", tag = "legacy", event = "LspAttach", opts = {} },  -- LSP status updates, doesn't seem to work with fortls
-      "folke/neodev.nvim",                                                      -- configures lua-language-server for Neovim config, runtime and plugin directories
+      --{ 'j-hui/fidget.nvim', tag = 'legacy', event = 'LspAttach', opts = {} },  -- LSP status updates, doesn't seem to work with fortls
+      'folke/neodev.nvim',                                                      -- configures lua-language-server for Neovim config, runtime and plugin directories
     },
   },
 
   -- LSP autocompletion
   { 
-    "hrsh7th/nvim-cmp",                                                         -- autocompletion recommended by neovim
+    'hrsh7th/nvim-cmp',                                                         -- autocompletion recommended by neovim
     dependencies = {
-      "L3MON4D3/LuaSnip",                                                       -- snippets plugin
-      "saadparwaiz1/cmp_luasnip",                                               -- snippets source for nvim-cmp
-      "hrsh7th/cmp-nvim-lsp",                                                   -- LSP source for nvim-cmp
-      "rafamadriz/friendly-snippets",                                           -- snippets for a range of languages
+      'L3MON4D3/LuaSnip',                                                       -- snippets plugin
+      'saadparwaiz1/cmp_luasnip',                                               -- snippets source for nvim-cmp
+      'hrsh7th/cmp-nvim-lsp',                                                   -- LSP source for nvim-cmp
+      'rafamadriz/friendly-snippets',                                           -- snippets for a range of languages
+    },
+  },
+
+  -- Scroll bar
+  {
+    'dstein64/nvim-scrollview',                                                 -- scrollbar
+    opts = {
+      excluded_filetypes = {'NvimTree'},
+      current_only = true,
+      scrollview_winblend = 50,
+     --signs_on_startup = {'all'},
+     --diagnostics_severities = {vim.diagnostic.severity.ERROR},
     },
   },
 
   -- Status line
   {
-    "nvim-lualine/lualine.nvim",                                                -- custom status line
+    'nvim-lualine/lualine.nvim',                                                -- custom status line
     opts = {
       options = {
         section_separators = { left = '', right = '' },
@@ -169,30 +181,30 @@ require("lazy").setup({
         -- component_separators = { left = '', right = '' },
       },
       sections = {
-        lualine_a = { { "mode", separator = { left = "", right = ""}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
-        -- lualine_a = { { "mode", separator = { left = "", right = ""}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
-        lualine_y = { { "progress", fmt = function(str) return string.format(" %3s", str) end }, },
-        --lualine_z = { { function() return string.format("%3d:%-3d", vim.fn.line("."), vim.fn.col(".")) end, separator = { left = "", right = "" }, }, },
-        lualine_z = { { "location", fmt = function(str) return string.format("%s", str) end, separator = { left = "", right = "" }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
-        -- lualine_z = { { "location", fmt = function(str) return string.format("%s", str) end, separator = { left = "", right = "" }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
+        lualine_a = { { 'mode', separator = { left = '', right = ''}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
+        -- lualine_a = { { 'mode', separator = { left = '', right = ''}, }, },   -- uses semi-circle nerdfont symbol for beggining of statusline
+        lualine_y = { { 'progress', fmt = function(str) return string.format(' %3s', str) end }, },
+        --lualine_z = { { function() return string.format('%3d:%-3d', vim.fn.line('.'), vim.fn.col('.')) end, separator = { left = '', right = '' }, }, },
+        lualine_z = { { 'location', fmt = function(str) return string.format('%s', str) end, separator = { left = '', right = '' }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
+        -- lualine_z = { { 'location', fmt = function(str) return string.format('%s', str) end, separator = { left = '', right = '' }, }, }, -- uses semi-circle nerdfont symbol for end of statusline
       },
       --winbar = {
-        --lualine_c = { "filename", fmt = function(str) return string.format("%s %s", require"nvim-web-devicons".get_icon(str, str:match("[^.]+$")), str) end},
+        --lualine_c = { 'filename', fmt = function(str) return string.format('%s %s', require'nvim-web-devicons'.get_icon(str, str:match('[^.]+$')), str) end},
       --},
     },
   },
 
   -- UI
   {
-    "folke/noice.nvim",                                                         -- replaces UI for messages, cmdline, and popupmenu
-    event = "VeryLazy",
+    'folke/noice.nvim',                                                         -- replaces UI for messages, cmdline, and popupmenu
+    event = 'VeryLazy',
     opts = {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
         },
       },
       presets = {
@@ -211,14 +223,14 @@ require("lazy").setup({
       -- },
     },
     dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
+      -- if you lazy-load any plugin below, make sure to add proper `module='...'` entries
+      'MunifTanjim/nui.nvim',
       {
-        "rcarriga/nvim-notify",
+        'rcarriga/nvim-notify',
         opts = {
-          --background_colour = "Normal",
+          --background_colour = 'Normal',
           fps = 60,
-          stages = "fade",
+          stages = 'fade',
           timeout = 1000,
         },
       },
@@ -227,11 +239,11 @@ require("lazy").setup({
 
   -- Highlight, edit, and navigate code
   {
-    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter',
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    build = ":TSUpdate",
+    build = ':TSUpdate',
   },
 
 }, {})
@@ -242,15 +254,15 @@ require("lazy").setup({
 --------------------------------------------------------------------------------
 
 -- Built-in options
-vim.cmd.colorscheme "dracula"                                                   -- sets colour scheme
+vim.cmd.colorscheme 'dracula'                                                   -- sets colour scheme
 vim.g.loaded_netrw = 1                                                          -- disables netrw for nvim-tree to work
 vim.g.loaded_netrwPlugin = 1                                                    -- disables netrw for nvim-tree to work
---vim.opt.background = "dark"                                                     -- set background colour to dark or light
+--vim.opt.background = 'dark'                                                     -- set background colour to dark or light
 vim.opt.breakindent = true                                                      -- keeps indent when wrapping
-vim.opt.completeopt = "menuone,noselect"                                        -- completeopt, something to do with completion idk
-vim.opt.colorcolumn = "80"                                                      -- colours a column
+vim.opt.completeopt = 'menuone,noselect'                                        -- completeopt, something to do with completion idk
+vim.opt.colorcolumn = '80'                                                      -- colours a column
 vim.opt.cursorline = true                                                       -- highlights current line
-vim.opt.guicursor = "n-v-c:hor20,i-ci-ve:ver25,r-cr:block,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"  -- changes cursor appearance for each mode
+vim.opt.guicursor = 'n-v-c:hor20,i-ci-ve:ver25,r-cr:block,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175'  -- changes cursor appearance for each mode
 vim.opt.ignorecase = true                                                       -- case-insensitive search
 vim.opt.number = true                                                           -- displays line numbers
 vim.opt.laststatus = 3                                                          -- sets global statusline for all windows 
@@ -266,22 +278,22 @@ vim.wo.wrap = false                                                             
 -- Filetype associations
 vim.filetype.add({
   extension = {
-    h = "fortran",
+    h = 'fortran',
   },
   filename = {
-    [".fortls"] = "jsonc",
+    ['.fortls'] = 'jsonc',
   }
 })
 
 -- Highlight groups for setting colours of indent guides and virtual column
 local highlight = {
-  "ActiveIndent",
-  "InactiveIndent",
+  'ActiveIndent',
+  'InactiveIndent',
 }
-local hooks = require "ibl.hooks"
+local hooks = require 'ibl.hooks'
 hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-  vim.api.nvim_set_hl(0, "ActiveIndent", { fg = "#62646C" })
-  vim.api.nvim_set_hl(0, "InactiveIndent", { fg = "#3E404A" })
+  vim.api.nvim_set_hl(0, 'ActiveIndent', { fg = '#62646C' })
+  vim.api.nvim_set_hl(0, 'InactiveIndent', { fg = '#3E404A' })
 end)
 
 -- Highlight on yank (:help vim.highlight.on_yank())
@@ -295,10 +307,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Reset terminal cursor upon exiting Neovim
-vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {
-  pattern = "*",
+vim.api.nvim_create_autocmd({'VimLeave', 'VimSuspend'}, {
+  pattern = '*',
   callback = function()
-    vim.opt.guicursor = "a:ver25-blinkwait175-blinkoff150-blinkon150"
+    vim.opt.guicursor = 'a:ver25-blinkwait175-blinkoff150-blinkon150'
   end
 })
 
@@ -311,14 +323,14 @@ vim.api.nvim_create_autocmd({"VimLeave", "VimSuspend"}, {
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Wrapping (idk)
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'k', 'v:count == 0 ? "gk" : "k"', { expr = true, silent = true })
+vim.keymap.set('n', 'j', 'v:count == 0 ? "gj" : "j"', { expr = true, silent = true })
 
 -- Diagnostics (:help vim.diagnostic.*)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- which-key
 require('which-key').register {
@@ -369,6 +381,9 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- nvim-tree
 vim.keymap.set('n', '<leader>tt', require('nvim-tree.api').tree.toggle, { desc = '[T]ree [T]oggle' })
 
+-- terminal
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+
 -------------------------------------------------------------------------------
 -- Commands --
 -------------------------------------------------------------------------------
@@ -393,10 +408,10 @@ local on_attach = function(_, bufnr)
   -- Convenient function for defining below LSP related key mappings 
   local nmap = function(keys, func, desc)
     if desc then
-      desc = "LSP: " .. desc
+      desc = 'LSP: ' .. desc
     end
 
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
   
   -- Buffer local mappings
@@ -431,18 +446,18 @@ end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { 
-  "fortls",
-  "pyright",
+  'fortls',
+  'pyright',
 }
 
 -- neodev setup
-require "neodev".setup()
+require 'neodev'.setup()
 
 -- Broadcast nvim-cmp's additional completion capabilities to language servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require "cmp_nvim_lsp".default_capabilities(capabilities)
+capabilities = require 'cmp_nvim_lsp'.default_capabilities(capabilities)
 
-local lspconfig = require "lspconfig"
+local lspconfig = require 'lspconfig'
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -452,9 +467,9 @@ for _, lsp in ipairs(servers) do
 end
 
 -- nvim-cmp setup
-local cmp = require "cmp"
-local luasnip = require "luasnip"
-require "luasnip.loaders.from_vscode".lazy_load()
+local cmp = require 'cmp'
+local luasnip = require 'luasnip'
+require 'luasnip.loaders.from_vscode'.lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
@@ -466,15 +481,15 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ["<C-u>"] = cmp.mapping.scroll_docs(-4),                                    -- up
-    ["<C-d>"] = cmp.mapping.scroll_docs(4),                                     -- down
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),                                    -- up
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),                                     -- down
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping.confirm {
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -482,8 +497,8 @@ cmp.setup {
       else
         fallback()
       end
-    end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -491,11 +506,11 @@ cmp.setup {
       else
         fallback()
       end
-    end, { "i", "s" }),
+    end, { 'i', 's' }),
   }),
   sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
   },
 }
 
@@ -507,25 +522,25 @@ cmp.setup {
 -- neoscroll
 local t = {}
 -- Syntax: t[keys] = {function, {function arguments}}
--- Use the "sine" easing function
+-- Use the 'sine' easing function
 t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}}
 t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
--- Use the "circular" easing function
+-- Use the 'circular' easing function
 t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '500', [['circular']]}}
 t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '500', [['circular']]}}
--- Pass "nil" to disable the easing animation (constant scrolling speed)
+-- Pass 'nil' to disable the easing animation (constant scrolling speed)
 t['<C-y>'] = {'scroll', {'-0.10', 'false', '100', nil}}
 t['<C-e>'] = {'scroll', { '0.10', 'false', '100', nil}}
--- When no easing function is provided the default easing function (in this case "quadratic") will be used
+-- When no easing function is provided the default easing function (in this case 'quadratic') will be used
 t['zt']    = {'zt', {'300'}}
 t['zz']    = {'zz', {'300'}}
 t['zb']    = {'zb', {'300'}}
-require "neoscroll.config".set_mappings(t)
+require 'neoscroll.config'.set_mappings(t)
 
 -- Treesitter
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
-  require "nvim-treesitter.configs".setup {
+  require 'nvim-treesitter.configs'.setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
@@ -534,7 +549,7 @@ vim.defer_fn(function()
 
     highlight = {
       enable = true,
-      disable = { "fortran" },                                                  -- disables treesitter syntax highlighting for Fortran files
+      disable = { 'fortran' },                                                  -- disables treesitter syntax highlighting for Fortran files
     },
     indent = { enable = true },
     incremental_selection = {
@@ -594,20 +609,20 @@ vim.defer_fn(function()
 end, 0)
 
 -- Indent Blankline
-require "ibl".setup {
+require 'ibl'.setup {
   indent = {
-    char = "▏",
-    highlight = "InactiveIndent"
+    char = '▏',
+    highlight = 'InactiveIndent'
   },
   scope = {
-    highlight = "ActiveIndent"
+    highlight = 'ActiveIndent'
   }
 }
 
 -- virt-column
-require "virt-column".setup({
-  char = "▕",
-  highlight = "InactiveIndent"
+require 'virt-column'.setup({
+  char = '▕',
+  highlight = 'InactiveIndent'
 })
 
 -------------------------------------------------------------------------------
