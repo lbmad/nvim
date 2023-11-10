@@ -50,7 +50,7 @@ require('lazy').setup({
   --{ 'ellisonleao/gruvbox.nvim', name = 'gruvbox', lazy = false, priority = 1000, config = true }, -- gruvbox colour scheme
   --{ 'folke/tokyonight.nvim', name = 'tokyonight', lazy = false, priority = 1000, opts = { transparent = true } }, -- Tokyo Night colour scheme (tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon)
   { 'maxmx03/dracula.nvim', name = 'dracula', lazy = false, priority = 1000, opts = { } },  -- unoffical dracula colour scheme for nvim
-  
+
   -- CSV column highlighting
   {
     'cameron-wags/rainbow_csv.nvim',                                            -- highlights separate columns in .csv files for easier reading
@@ -85,10 +85,10 @@ require('lazy').setup({
   },
 
   -- Fuzzy finder
-  { 
+  {
     'nvim-telescope/telescope.nvim',                                            -- list fuzzy finder
     branch = '0.1.x',
-    dependencies = { 
+    dependencies = {
       'nvim-lua/plenary.nvim',                                                  -- Lua coroutines
       {
         'nvim-telescope/telescope-fzf-native.nvim',                             -- fuzzy finder algorithm
@@ -139,7 +139,7 @@ require('lazy').setup({
   },
 
   -- LSP
-  { 
+  {
     'neovim/nvim-lspconfig',                                                    -- built-in LSP client
     dependencies = {
       --{ 'j-hui/fidget.nvim', tag = 'legacy', event = 'LspAttach', opts = {} },  -- LSP status updates, doesn't seem to work with fortls
@@ -148,7 +148,7 @@ require('lazy').setup({
   },
 
   -- LSP autocompletion
-  { 
+  {
     'hrsh7th/nvim-cmp',                                                         -- autocompletion recommended by neovim
     dependencies = {
       'L3MON4D3/LuaSnip',                                                       -- snippets plugin
@@ -375,6 +375,7 @@ vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { des
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', {desc = '[S]earch by [G]rep on Git Root'})
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
@@ -383,6 +384,7 @@ vim.keymap.set('n', '<leader>tt', require('nvim-tree.api').tree.toggle, { desc =
 
 -- terminal
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+
 
 -------------------------------------------------------------------------------
 -- Commands --
@@ -413,7 +415,7 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
-  
+
   -- Buffer local mappings
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
@@ -444,25 +446,34 @@ local on_attach = function(_, bufnr)
 
 end
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp (see :h lspconfig-all for list of available LSPs)
+local servers = {
   'fortls',
+  'julials',
   'pyright',
+  'lua_ls',
+  -- lua_ls = {
+  --   Lua = {
+  --     workspace = { checkThirdParty = false },
+  --     telemetry = { enable = false },
+  --   },
+  -- },
+
 }
 
--- neodev setup
+-- Setup neovim lua configuration 
 require 'neodev'.setup()
 
 -- Broadcast nvim-cmp's additional completion capabilities to language servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require 'cmp_nvim_lsp'.default_capabilities(capabilities)
 
-local lspconfig = require 'lspconfig'
-
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
+for _, server_name in ipairs(servers) do
+  require 'lspconfig'[server_name].setup {
     capabilities = capabilities,
+    on_attach = on_attach,
+    settings = servers[server_name],
+    filetypes = (servers[server_name] or {}).filetypes,
   }
 end
 
@@ -542,7 +553,7 @@ require 'neoscroll.config'.set_mappings(t)
 vim.defer_fn(function()
   require 'nvim-treesitter.configs'.setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'julia' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
