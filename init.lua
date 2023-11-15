@@ -158,8 +158,8 @@ require('lazy').setup({
   {
     'neovim/nvim-lspconfig',                                                    -- built-in LSP client
     dependencies = {
-      'williamboman/mason.nvim',                                                -- manages LSPs. Requires apt npm, apt python3-venv
-      'williamboman/mason-lspconfig.nvim',
+      --'williamboman/mason.nvim',                                                -- manages LSPs. Requires apt npm, apt python3-venv
+      --'williamboman/mason-lspconfig.nvim',
       { 'j-hui/fidget.nvim', opts = {} },                                       -- LSP status updates
       'folke/neodev.nvim',
     },
@@ -483,39 +483,40 @@ local on_attach = function(_, bufnr)
 
 end
 
--- if not using Mason
--- local servers = {
---   'fortls',
---   'julials',
---   'pyright',
---   'lua_ls',
--- }
+--if not using Mason
+local servers = {
+  'clangd',
+  'fortls',
+  'julials',
+  'pyright',
+  --'lua_ls',
+}
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup()
-require('mason-lspconfig').setup()
+--require('mason').setup()
+--require('mason-lspconfig').setup()
 
 -- Enable some language servers with the additional completion capabilities
 --   offered by nvim-cmp via Mason (see :h lspconfig-all for list of available LSPs, and
 --   https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md 
 --   for installation instructions. Check :Mason, :MasonLog, :checkhealth Mason
 --   if issues arise)
-local servers = {
-  clangd = {},
-  fortls = {},
-  julials = {},
-  pyright = {},
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      diagnostics = {
-        disable = { "missing-fields" },
-      },
-    },
-  },
-}
+-- local servers = {
+--   clangd = {},
+--   fortls = {},
+--   julials = {},
+--   pyright = {},
+--   lua_ls = {
+--     Lua = {
+--       workspace = { checkThirdParty = false },
+--       telemetry = { enable = false },
+--       diagnostics = {
+--         disable = { "missing-fields" },
+--       },
+--     },
+--   },
+-- }
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -524,31 +525,31 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Install and configure language servers via Mason 
-local mason_lspconfig = require 'mason-lspconfig'
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
-}
+-- -- Install and configure language servers via Mason 
+-- local mason_lspconfig = require 'mason-lspconfig'
+-- mason_lspconfig.setup {
+--   ensure_installed = vim.tbl_keys(servers),
+-- }
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     require('lspconfig')[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = on_attach,
+--       settings = servers[server_name],
+--       filetypes = (servers[server_name] or {}).filetypes,
+--     }
+--   end,
+-- }
 
--- -- if not using Mason
--- for _, server_name in ipairs(servers) do
---   require 'lspconfig'[server_name].setup {
---     capabilities = capabilities,
---     on_attach = on_attach,
---     settings = servers[server_name],
---     filetypes = (servers[server_name] or {}).filetypes,
---   }
--- end
+-- if not using Mason
+for _, server_name in ipairs(servers) do
+  require 'lspconfig'[server_name].setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = servers[server_name],
+    filetypes = (servers[server_name] or {}).filetypes,
+  }
+end
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
