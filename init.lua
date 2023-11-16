@@ -483,7 +483,7 @@ local on_attach = function(_, bufnr)
 
 end
 
---if not using Mason
+-- list of LSPs to use if not using Mason
 local servers = {
   'clangd',
   'fortls',
@@ -541,7 +541,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 --   end,
 -- }
 
--- if not using Mason
+-- Configure LSPs if not using Mason
 for _, server_name in ipairs(servers) do
   require 'lspconfig'[server_name].setup {
     capabilities = capabilities,
