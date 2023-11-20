@@ -246,7 +246,7 @@ require('lazy').setup({
       {
         'rcarriga/nvim-notify',
         opts = {
-          --background_colour = 'Normal',
+          background_colour = '#000000',                                        -- to avoid error upon startup
           fps = 60,
           stages = 'fade',
           timeout = 1000,
