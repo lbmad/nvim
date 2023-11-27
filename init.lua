@@ -57,16 +57,6 @@ require('lazy').setup({
     opts = { },
   },
 
-  -- Column
-  {
-    'lukas-reineke/virt-column.nvim',                                           -- adds a character to colorcolumn
-    opts = {
-      char = '▕',
-      highlight = 'InactiveIndent',
-      virtcolumn = "80",
-    },
-  },
-
   -- CSV column highlighting
   {
     'cameron-wags/rainbow_csv.nvim',                                            -- highlights separate columns in .csv files for easier reading
@@ -176,6 +166,19 @@ require('lazy').setup({
     },
   },
 
+  -- -- REPL support for Julia and Python
+  -- {
+  --   'Pangoraw/Neige.jl',
+  --   build = function()
+  --     require 'neige'.instantiate({ popup = true })
+  --   end,
+  --   ft = {
+  --     'julia',
+  --     'python',
+  --   },
+  --   opts = {},
+  -- },
+
   -- Scroll bar
   {
     'dstein64/nvim-scrollview',                                                 -- scrollbar
@@ -239,7 +242,7 @@ require('lazy').setup({
       --     },
       --   },
       -- },
-    },
+   },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module='...'` entries
       'MunifTanjim/nui.nvim',
@@ -255,8 +258,17 @@ require('lazy').setup({
     },
   },
 
-}, {})
+  -- Virtual column
+  {
+    'lukas-reineke/virt-column.nvim',                                           -- adds a character to colorcolumn
+    opts = {
+      char = '▕',
+      highlight = 'InactiveIndent',
+      virtcolumn = "80",
+    },
+  },
 
+}, {})
 
 --------------------------------------------------------------------------------
 -- General settings --
@@ -275,6 +287,7 @@ vim.o.ignorecase = true                                                         
 vim.o.laststatus = 3                                                            -- sets global statusline for all windows 
 vim.o.mouse = 'a'                                                               -- enables mouse mode
 --vim.o.pumblend = 25                                                             -- sets transparency for popup menus
+vim.o.pumheight = 10                                                            -- maximum no. items shown in popup menu
 vim.o.relativenumber = true                                                     -- displays line numbers relative to current line
 vim.o.scrolloff = 5                                                             -- keeps 5 lines above/below cursor when scrolling files
 vim.o.smartcase = true                                                          -- case-sensitive search if \C or upper case character is included
@@ -619,12 +632,19 @@ require 'ibl'.setup {
   }
 }
 
+-- -- neige
+-- local neige = require('neige')
+-- neige.start()
+-- vim.keymap.set('n', '<S-CR>', function()
+--   neige.send_command({})
+-- end, { noremap = true }) 
+
 -- Treesitter (:help nvim-treesitter)
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'julia' },
+    ensure_installed = { 'bash', 'c', 'cpp', 'go', 'javascript', 'julia', 'lua', 'markdown', 'markdown_inline', 'python', 'regex', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
